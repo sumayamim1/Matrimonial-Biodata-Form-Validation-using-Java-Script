@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Matrimonial Biodata Form</title>
+
+<style>
+body {
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  background: linear-gradient(to right, #e3f2fd, #fce4ec);
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 480px;
+  margin: 60px auto;
+  background: #ffffff;
+  padding: 35px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 25px;
+  letter-spacing: 1px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  color: #555;
+  font-weight: 600;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+input:focus,
+select:focus {
+  border-color: #1976d2;
+  outline: none;
+  box-shadow: 0 0 6px rgba(25, 118, 210, 0.4);
+}
+
+.error {
+  color: #d32f2f;
+  font-size: 14px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.success {
+  color: #2e7d32;
+  font-size: 14px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background: #1976d2;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #0d47a1;
+  transform: translateY(-2px);
+}
+
+footer {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 13px;
+  color: #777;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+<h2>Matrimonial Biodata</h2>
+
+<form onsubmit="return validateForm();">
+
+<div class="form-group">
+<label>Full Name</label>
+<input type="text" id="name" />
+</div>
+
+<div class="form-group">
+<label>Gender</label>
+<select id="gender">
+<option value="">Select Gender</option>
+<option>Male</option>
+<option>Female</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Age</label>
+<input type="number" id="age" />
+</div>
+
+<div class="form-group">
+<label>Email Address</label>
+<input type="email" id="email" />
+</div>
+
+<div class="form-group">
+<label>Phone Number</label>
+<input type="text" id="phone" placeholder="11 digits" />
+</div>
+
+<div class="form-group">
+<label>Password</label>
+<input type="password" id="password" />
+</div>
+
+<div class="form-group">
+<label>Confirm Password</label>
+<input type="password" id="confirmPassword" />
+</div>
+
+<div id="message"></div>
+
+<button type="submit">Submit Biodata</button>
+</form>
+
+<footer>© Matrimonial Information Form</footer>
+</div>
+
+<script>
+function validateForm() {
+  let name = document.getElementById("name").value.trim();
+  let gender = document.getElementById("gender").value;
+  let age = document.getElementById("age").value;
+  let email = document.getElementById("email").value.trim();
+  let phone = document.getElementById("phone").value.trim();
+  let password = document.getElementById("password").value;
+  let confirmPassword = document.getElementById("confirmPassword").value;
+  let message = document.getElementById("message");
+
+  message.className = "";
+  message.innerHTML = "";
+
+  if (!name || !gender || !age || !email || !phone || !password || !confirmPassword) {
+    message.className = "error";
+    message.innerHTML = "Please fill in all fields.";
+    return false;
+  }
+
+  if (age < 18) {
+    message.className = "error";
+    message.innerHTML = "Age must be 18 or above.";
+    return false;
+  }
+
+  if (!/^\d{11}$/.test(phone)) {
+    message.className = "error";
+    message.innerHTML = "Phone number must be exactly 11 digits.";
+    return false;
+  }
+
+  if (password.length < 6) {
+    message.className = "error";
+    message.innerHTML = "Password must be at least 6 characters.";
+    return false;
+  }
+
+  if (password !== confirmPassword) {
+    message.className = "error";
+    message.innerHTML = "Passwords do not match.";
+    return false;
+  }
+
+  message.className = "success";
+  message.innerHTML = "Biodata submitted successfully!";
+  
+  document.querySelector("form").reset();
+  return false; 
+}
+</script>
+
+</body>
+</html>
